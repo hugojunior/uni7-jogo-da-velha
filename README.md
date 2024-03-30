@@ -1,5 +1,5 @@
 # Jogo da Velha
-Projeto da disciplina de Inteligência Artificial do curso de Sistemas de Informação na UNI7, onde é desenvolvido um jogo da velha utilizando o algoritmo Minimax.
+Projeto da disciplina de Inteligência Artificial do curso de Sistemas de Informação na UNI7, onde é desenvolvido um jogo da velha utilizando o algoritmo [Minimax](https://en.wikipedia.org/wiki/Minimax).
 
 ## Modos de Jogo:
 - Jogador X Jogador
