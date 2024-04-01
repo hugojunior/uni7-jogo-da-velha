@@ -3,6 +3,7 @@ class JogoDaVelha {
         this.jogadorAtual = 'X';
         this.modo = 'jxj';
         this.jogoTerminou = false;
+        this.jogoHabilitado = true;
         this.quadro = [
             ['', '', ''],
             ['', '', ''],
@@ -218,12 +219,18 @@ class JogoDaVelha {
     }
 
     jogarCxC() {
-        if (!this.jogoTerminou) {
+        if (!this.jogoTerminou && this.jogoHabilitado) {
+            this.jogoHabilitado = false;
             this.jogadaDoComputador(this.jogadorAtual);
             const status = this.checarStatus();
             this.atualizarStatus(status);
             if (status === null) {
-                setTimeout(() => this.jogarCxC(), 2000);
+                setTimeout(() => {
+                    this.jogoHabilitado = true;
+                    this.jogarCxC();
+                }, 2000);
+            } else {
+               this.jogoHabilitado = true;
             }
         }
     }
@@ -254,12 +261,14 @@ class JogoDaVelha {
     }
 
     jogar(modo = 'jxj') {
-        this.modo = modo;
-        this.reiniciarJogo();
-        this.atualizarModoDeJogo();
-
-        if (this.modo === 'cxc') {
-            this.jogarCxC();
+        if (this.jogoHabilitado) {
+            this.modo = modo;
+            this.reiniciarJogo();
+            this.atualizarModoDeJogo();
+    
+            if (this.modo === 'cxc') {
+                this.jogarCxC();
+            }
         }
     }
 }
