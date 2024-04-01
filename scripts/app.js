@@ -133,14 +133,14 @@ class JogoDaVelha {
     }
 
     minimax(quadro, profundidade, maximizador, jogador, oponente) {
-        const status = this.checarStatus(); // Verifica o estado atual do jogo
+        const status = this.checarStatus();
         if (status !== null) {
             if (status === jogador) {
-                return 1; // Retorna +1 se o jogador atual vencer
+                return 1; // Ganhou
             } else if (status === oponente) {
-                return -1; // Retorna -1 se o oponente atual vencer
+                return -1; // Perdeu
             } else {
-                return 0; // Retorna 0 para empate
+                return 0; // Empatou
             }
         }
 
@@ -149,7 +149,7 @@ class JogoDaVelha {
             for (let i = 0; i < 3; i++) {
                 for (let j = 0; j < 3; j++) {
                     if (quadro[i][j] === '') {
-                        quadro[i][j] = jogador; // Simula uma jogada do jogador atual
+                        quadro[i][j] = jogador; // Simula jogada do jogador
                         const peso = this.minimax(quadro, profundidade + 1, false, jogador, oponente);
                         quadro[i][j] = ''; // Desfaz a jogada
                         melhorPeso = Math.max(peso, melhorPeso);
@@ -162,7 +162,7 @@ class JogoDaVelha {
             for (let i = 0; i < 3; i++) {
                 for (let j = 0; j < 3; j++) {
                     if (quadro[i][j] === '') {
-                        quadro[i][j] = oponente; // Simula uma jogada do oponente atual
+                        quadro[i][j] = oponente; // Simula jogada do oponente
                         const peso = this.minimax(quadro, profundidade + 1, true, jogador, oponente);
                         quadro[i][j] = ''; // Desfaz a jogada
                         melhorPeso = Math.min(peso, melhorPeso);
@@ -176,6 +176,10 @@ class JogoDaVelha {
     selecionarMelhorJogada(jogador, oponente) {
         let melhorPeso = -Infinity;
         let melhorJogada;
+        let limparPesos = document.querySelectorAll('.quadro .p');
+        limparPesos.forEach((p) => {
+            p.textContent = '';
+        });
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
                 if (this.quadro[i][j] === '') {
@@ -186,6 +190,12 @@ class JogoDaVelha {
                     if (peso > melhorPeso) {
                         melhorPeso = peso;
                         melhorJogada = { linha: i, coluna: j };
+                    } else if (peso === melhorPeso) {
+                        const aleatorio = Math.random();
+                        if (aleatorio > 0.5) {
+                            melhorPeso = peso;
+                            melhorJogada = { linha: i, coluna: j };
+                        }
                     }
                 }
             }
@@ -213,7 +223,7 @@ class JogoDaVelha {
             const status = this.checarStatus();
             this.atualizarStatus(status);
             if (status === null) {
-                setTimeout(() => this.jogarCxC(), 1000);
+                setTimeout(() => this.jogarCxC(), 2000);
             }
         }
     }
@@ -255,4 +265,4 @@ class JogoDaVelha {
 }
 
 const jogo = new JogoDaVelha();
-
+jogo.jogar();
