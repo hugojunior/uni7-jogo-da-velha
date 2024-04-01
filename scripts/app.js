@@ -31,7 +31,7 @@ class JogoDaVelha {
         if (this.quadro[0][2] !== '' && this.quadro[0][2] === this.quadro[1][1] && this.quadro[0][2] === this.quadro[2][0]) {
             this.marcarComoGanhador([`02`, `11`, `20`]);
             if (this.modo === 'jxj') {
-                document.querySelector('.sec-notas').classList.add('mostrar');
+                this.mostrarNotas();
             } 
             return this.quadro[0][2];
         }
@@ -237,6 +237,22 @@ class JogoDaVelha {
 
     mostrarPesoDaJogada(linha, coluna, peso = "") {
         document.querySelector(`#pos${linha}${coluna} .p`).textContent = peso;
+    }
+
+    mostrarNotas() {
+        const notas = document.querySelector('.sec-notas');
+        const inputRange = document.querySelector('.sec-notas input[type="range"]');
+        let valorAtual = 0;
+        
+        setInterval(() => {
+            valorAtual += 1;
+            if (valorAtual > parseInt(inputRange.max)) {
+                valorAtual = parseInt(inputRange.min);
+            }
+            inputRange.value = valorAtual;
+        }, 500);
+
+        notas.classList.add('mostrar');
     }
 
     reiniciarJogo() {
