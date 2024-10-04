@@ -7,6 +7,3 @@ Projeto da disciplina de Inteligência Artificial do curso de Sistemas de Inform
 - Computador X Computador
 
 ![Jogo da Velha](images/screenshot.png)
-
-## Jogar online
-- [Versão online do projeto](https://www.hugojunior.com/faculdade/jogo-da-velha/)
